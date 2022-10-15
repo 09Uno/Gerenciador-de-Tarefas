@@ -1,0 +1,22 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tarefa{
+
+  id String @id @default(uuid())
+  titulo String
+  descricao String
+  horario DateTime? @db.Timestamp(4)	
+  tempo String
+
+  @@map("tarefas")
+}

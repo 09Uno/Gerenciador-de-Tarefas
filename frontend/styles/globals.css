@@ -1,0 +1,7 @@
+*{
+  margin: 0;
+}
+body{
+  background-image: url("../../frontend/src/img/istockphoto-1394594963-170667a.jpg");
+  background-size: 100%;
+}

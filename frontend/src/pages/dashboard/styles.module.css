@@ -1,0 +1,170 @@
+.container {
+    min-height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 3rem;
+}
+
+.containerCenter {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 3rem;
+    background-color: aliceblue;
+    width: 70%;
+    height: auto;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 30px;
+}
+
+.head {
+    display: flex;
+    margin-top: 10px
+}
+
+.h2 {
+    display: flex;
+    left: 50%;
+    color: green;
+}
+
+.add {
+    display: flex;
+    float: right;
+    position: relative;
+    left: 60%;
+    border: 0px;
+    background-color: rgba(128, 128, 128, 0);
+    cursor: pointer;
+}
+
+.add :hover {
+
+    background-color: aliceblue;
+
+}
+
+.listarAgendamentos {
+    width: 80%;
+
+}
+
+.listar {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    margin-bottom: 40px;
+}
+
+.opcao {
+
+    min-width: 300px;
+    min-height: 40px;
+    font-size: 18px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    margin: auto;
+    color: green;
+    border-radius: 10px;
+    cursor: pointer;
+
+}
+
+.buscar {
+    min-width: 300px;
+    min-height: 40px;
+    font-size: 18px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    margin: auto;
+    color: green;
+    border-radius: 10px;
+    cursor:text;
+
+}
+
+.agendamentos {
+    width: 95%;
+    height: 60px;
+    min-width: 500px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    border-radius: 0.9rem;
+    margin-bottom: 1rem;
+    background-color: rgba(191, 183, 183, 0.708);
+    font-weight: 600;
+    margin-top: 1rem;
+    margin-right: auto;
+    margin-left: auto;
+    cursor: pointer;
+
+}
+
+
+.tag {
+    background-color: green;
+    width: 20px;
+    height: 60px;
+    margin-right: 1rem;
+    border-radius: 0.4rem;
+    position: absolute;
+}
+
+.horario {
+    width: 30%;
+}
+
+.titulo {
+    width: 60%;
+
+}
+
+.tarefa {
+    margin-left: 2rem;
+
+}
+
+.funcoes {
+    justify-content: flex-start;
+    display: flex;
+
+
+}
+
+.button {
+    width: 100%;
+    min-width: 100px;
+    height: 80px;
+    background: transparent;
+    font-size: 1.2rem;
+    align-items: center;
+    font-weight: 550;
+    display: flex;
+    justify-content: space-between;
+    border: 0;
+    color: rgb(11, 4, 4);
+    padding-right: 2rem;
+    cursor: pointer;
+
+}
+
+.funcButton {
+    display: flex;
+    float: right;
+    position: relative;
+    border: 0px;
+    background-color: rgba(128, 128, 128, 0);
+    cursor: pointer;
+    margin: 5px;
+}
