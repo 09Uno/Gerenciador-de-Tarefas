@@ -5,9 +5,6 @@ import styles from "./styles.module.css"
 import Modal from 'react-modal'
 
 
-
-
-import moment, { Moment } from 'moment';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import TextField from '@mui/material/TextField';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -38,6 +35,8 @@ export default function ModalCriarTarefas({ isOpen, onRequestClose }: ModalCriar
 
   async function criarTarefa({ titulo, descricao, horario, tempo }: CriarTarefaProps) {
 
+
+
     try {
       const response = await api.post('/tarefa', {
         titulo,
@@ -56,6 +55,12 @@ export default function ModalCriarTarefas({ isOpen, onRequestClose }: ModalCriar
   async function handleCadastrarTarefa(event: FormEvent): Promise<void> {
     event.preventDefault();
 
+
+    if (titulo || descricao || horario || tempo === '') {
+      alert('Preencha todos os campos')
+      return;
+    }
+    
     let data = {
       titulo,
       descricao,
@@ -79,9 +84,9 @@ export default function ModalCriarTarefas({ isOpen, onRequestClose }: ModalCriar
       transform: 'translate(-50%, -50%)',
       backgroundColor: '#a6ced8',
       borderRadius: '30px',
-    } 
+    }
   }
-  
+
   return (
     <Modal
       isOpen={isOpen}
@@ -90,7 +95,7 @@ export default function ModalCriarTarefas({ isOpen, onRequestClose }: ModalCriar
       className={styles.modal}
     >
 
-<div className={styles.containerMain}>
+      <div className={styles.containerMain}>
 
 
         <div className={styles.ContainerCenter}>
@@ -101,7 +106,7 @@ export default function ModalCriarTarefas({ isOpen, onRequestClose }: ModalCriar
             <form onSubmit={handleCadastrarTarefa} >
 
               <input placeholder="Título" className={styles.input}
-                      value={titulo}
+                value={titulo}
                 onChange={(e) => setTitulo(e.target.value)}
               />
 

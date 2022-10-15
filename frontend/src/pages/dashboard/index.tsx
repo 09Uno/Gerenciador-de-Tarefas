@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import styles from './styles.module.css'
 import { IoAddOutline } from 'react-icons/io5'
-import { GrUpdate } from 'react-icons/gr'
+import { FaEdit } from 'react-icons/fa'
 import { AiFillDelete } from 'react-icons/ai'
 import ModalCriarTarefas from '../../components/modalCriarTarefas'
 import { FormEvent, useEffect, useState } from 'react'
@@ -9,6 +9,8 @@ import { setupAPICliente } from '../../services/api'
 import moment from 'moment'
 import ModalDetalhesTarefas from '../../components/modalDetalhesTarefas'
 import { ListItem } from '@mui/material'
+import ModalEditarTarefas from '../../components/modalEditarTarefa'
+
 
 export type TarefasProps = {
     id: string,
@@ -37,8 +39,9 @@ export default function Dashboard({ tarefas }: HomeProps) {
     const [modalDetalhesTarefaItem, setModalDetalhesTarefaItem] = useState<TarefasProps[]>([])
     const [modalDetalhesTarefaVisible, setModalDetalhesTarefaVisible] = useState(false)
 
-    const [busca, setBusca] = useState('')
-    const [filtro, setFiltro] = useState('')
+    const [modalEditarTarefasItem, setModalEditarTarefasitem] = useState<TarefasProps[]>([])
+    const [modalEditarTarefasVisible, setModalEditarTarefasVisible] = useState(false)
+
 
 
 
@@ -53,6 +56,8 @@ export default function Dashboard({ tarefas }: HomeProps) {
     const anoFiltro = ano.filter((item, index) => ano.indexOf(item) === index)
 
     //Filtros para listagem de tarefas
+    const [busca, setBusca] = useState('')
+    const [filtro, setFiltro] = useState('')
     const Lbusca = busca.toLowerCase()
     const tarefaBusca = tarefasList.filter((item => item.titulo.toLowerCase().includes(Lbusca) && item.horario.toString().includes(filtro.toString()) || moment(item.horario).format('DD/MM/YYYY').includes(filtro.toString())
         || moment(item.horario).format('MM/YYYY').includes(filtro.toString()) || moment(item.horario).format('YYYY').includes(filtro.toString())))
@@ -68,18 +73,6 @@ export default function Dashboard({ tarefas }: HomeProps) {
 
     }
 
-    async function atualizarLista() {
-        const api = setupAPICliente()
-
-        try {
-            const response = await api.get("/tarefa")
-            setTarefasList(response.data)
-        } catch (err) {
-            alert("erro")
-        }
-
-    }
-    useEffect(() => { atualizarLista() }, [tarefasList])
 
     function handleCloseModalDetalhesTarefa() {
         setModalDetalhesTarefaVisible(false)
@@ -102,143 +95,195 @@ export default function Dashboard({ tarefas }: HomeProps) {
         }
     }
 
-    return (
-        <>
+    function handleCloseModalEditarTarefas() {
+        setModalEditarTarefasVisible(false)
+    }
 
-            <Head>
-                <title> Suas Tarefas  </title>
-            </Head>
+    async function handleModalEditarTarefas(tarefa_id: string) {
 
 
-            <div className={styles.container}>
 
-                <div className={styles.containerCenter}>
+        try {
+            const api = setupAPICliente()
 
-                    <div className={styles.head}>
-                        <h2 className={styles.h2}>TAREFAS AGENDADAS</h2>
-                        <button className={styles.add} onClick={handleModalCriarTarefas}>
-                            <IoAddOutline size={35} color="black" />
-                        </button>
+            const response = await api.get('tarefa/detalhes', {
+                params: {
+                    tarefa_id: tarefa_id,
+                }
+            })
+            setModalEditarTarefasVisible(true)
+            setModalEditarTarefasitem(response.data)
+
+        } catch (err) {
+            alert("erro")
+        }
+
+    }
+
+async function atualizarLista() {
+    const api = setupAPICliente()
+
+    try {
+        const response = await api.get("/tarefa")
+        setTarefasList(response.data)
+    } catch (err) {
+        alert("erro")
+    }
+
+}
+useEffect(() => { atualizarLista() }, [tarefasList])
+
+return (
+    <>
+
+        <Head>
+            <title> Suas Tarefas  </title>
+        </Head>
+
+
+        <div className={styles.container}>
+
+            <div className={styles.containerCenter}>
+
+                <div className={styles.head}>
+                    <h2 className={styles.h2}>TAREFAS AGENDADAS</h2>
+                    <button className={styles.add} onClick={handleModalCriarTarefas}>
+                        <IoAddOutline size={35} color="black" />
+                    </button>
+                </div>
+                <article className={styles.listarAgendamentos}>
+
+                    <div className={styles.listar}>
+
+
+                        <select value={filtro} onChange={(e) => setFiltro(e.target.value)} className={styles.opcao}>
+
+                            <option value="">Filtrar por Período</option>
+
+                            <optgroup label='DIA'>
+
+                                {diaFiltro.map(item => (
+
+                                    <option placeholder="DIA" key={item} value={item}
+
+                                    >  {moment.utc(item).format("DD/MM/YYYY")}</option>
+                                ))}
+
+                            </optgroup>
+
+                            <optgroup label='MÊS'>
+
+                                {mesFiltro.map(item => (
+
+                                    <option placeholder="MÊS" key={item} value={moment.utc(item).format("MM/YYYY")}
+
+                                    >  {moment.utc(item).format("MM/YYYY")}</option>
+
+                                ))}
+
+                            </optgroup>
+
+                            <optgroup label='ANO'>
+
+                                {anoFiltro.map(item => (
+
+                                    <option placeholder="ANO" key={item} value={moment.utc(item).format("YYYY")}
+
+                                    >  {moment.utc(item).format("/YYYY")}</option>
+
+                                ))}
+
+                            </optgroup>
+
+                        </select>
+
+
+
+                        <input placeholder="pesquise o título da tarefa" value={busca}
+                            onChange={(e) => setBusca(e.target.value)}
+                            className={styles.buscar} />
+
                     </div>
-                    <article className={styles.listarAgendamentos}>
-
-                        <div className={styles.listar}>
 
 
-                            <select value={filtro} onChange={(e) => setFiltro(e.target.value)} className={styles.opcao}>
-
-                                <option value="">Filtrar por Período</option>
-
-                                <optgroup label='DIA'>
-
-                                    {diaFiltro.map(item => (
-
-                                        <option placeholder="DIA" key={item} value={item}
-
-                                        >  {moment.utc(item).format("DD/MM/YYYY")}</option>
-                                    ))}
-
-                                </optgroup>
-                                
-                                    <optgroup label='MÊS'>
-
-                                        {mesFiltro.map(item => (
-
-                                            <option placeholder="MÊS" key={item} value={moment.utc(item).format("MM/YYYY")}
-
-                                            >  {moment.utc(item).format("MM/YYYY")}</option>
-
-                                        ))}
-
-                                    </optgroup>
-                                
-                                <optgroup label='ANO'>
-
-                                    {anoFiltro.map(item => (
-
-                                        <option placeholder="ANO" key={item} value={moment.utc(item).format("YYYY")}
-
-                                        >  {moment.utc(item).format("/YYYY")}</option>
-
-                                    ))}
-
-                                </optgroup>
-
-                            </select>
-
-
-
-                            <input placeholder="pesquise o título da tarefa" value={busca}
-                                onChange={(e) => setBusca(e.target.value)}
-                                className={styles.buscar} />
-
-                        </div>
-
-
-                        {tarefaBusca.length === 0 && (
-                            <p className={styles.emptyList}>
-                                Nenhum tarefa agendada...
-                            </p>
-                        )}
+                    {tarefaBusca.length === 0 && (
+                        <p className={styles.emptyList}>
+                            Nenhum tarefa agendada...
+                        </p>
+                    )}
 
 
 
 
-                        {tarefaBusca.map(tarefas => (
+                    {tarefaBusca.map(tarefas => (
 
 
-                            <section key={tarefas.id} className={styles.agendamentos}>
+                        <section key={tarefas.id} className={styles.agendamentos}>
 
-                                <div className={styles.button} >
+                            <div className={styles.button} >
 
-                                    <div className={styles.tag}></div>
-                                    <div onClick={() => handleModalDetalhesTarefa(tarefas.id)} className={styles.titulo}>
-                                        <span className={styles.tarefa}>{tarefas.titulo}</span>
-                                    </div>
-                                    <div onClick={() => handleModalDetalhesTarefa(tarefas.id)} className={styles.horario}>
-                                        <span>{moment.utc(tarefas.horario).format(" DD/MM/YYYY HH:mm ")}</span>
-                                    </div>
-
-                                    <div className={styles.funcoes}>
-                                        <button className={styles.funcButton} > <GrUpdate size={25} color="black" /> </button>
-                                        <button className={styles.funcButton}> <AiFillDelete size={25} color="black" /></button>
-                                    </div>
+                                <div className={styles.tag}></div>
+                                <div onClick={() => handleModalDetalhesTarefa(tarefas.id)} className={styles.titulo}>
+                                    <span className={styles.tarefa}>{tarefas.titulo}</span>
+                                </div>
+                                <div onClick={() => handleModalDetalhesTarefa(tarefas.id)} className={styles.horario}>
+                                    <span>{moment.utc(tarefas.horario).format(" DD/MM/YYYY HH:mm ")}</span>
                                 </div>
 
-                            </section>
+                                <div className={styles.funcoes}>
+                                    <button onClick={() => handleModalEditarTarefas(tarefas.id)} className={styles.funcButton} > <FaEdit size={25} color="black" /> </button>
+                                    <button className={styles.funcButton}> <AiFillDelete size={25} color="black" /></button>
+                                </div>
+                            </div>
 
-                        ))}
+                        </section>
 
-
-                        {modalCriarTarefaVisible && (
-                            <ModalCriarTarefas
-
-                                isOpen={modalCriarTarefaVisible}
-                                onRequestClose={handleCloseModalCriarTarefas}
-
-                            />
-                        )}
-
-                        {modalDetalhesTarefaVisible && (
-                            <ModalDetalhesTarefas
-
-                                isOpen={modalDetalhesTarefaVisible}
-                                onRequestClose={handleCloseModalDetalhesTarefa}
-                                tarefa={modalDetalhesTarefaItem}
-                            />
-
-                        )}
-
-                    </article>
-                </div>
+                    ))}
 
 
+                    {modalCriarTarefaVisible && (
+                        <ModalCriarTarefas
 
-            </div >
+                            isOpen={modalCriarTarefaVisible}
+                            onRequestClose={handleCloseModalCriarTarefas}
+
+                        />
+                    )}
+
+                    {modalDetalhesTarefaVisible && (
+                        <ModalDetalhesTarefas
+
+                            isOpen={modalDetalhesTarefaVisible}
+                            onRequestClose={handleCloseModalDetalhesTarefa}
+                            tarefa={modalDetalhesTarefaItem}
+                        />
+
+                    )}
 
 
-        </>
-    )
+                    {modalEditarTarefasVisible && (
+
+                        <ModalEditarTarefas
+
+                            isOpen={modalEditarTarefasVisible}
+                            onRequestClose={handleCloseModalEditarTarefas}
+                            tarefa={modalEditarTarefasItem}
+
+                        />
+
+                    )}
+
+
+                </article>
+            </div>
+
+
+
+        </div >
+
+
+    </>
+)
 
 
 

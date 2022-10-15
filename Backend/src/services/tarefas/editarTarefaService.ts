@@ -1,7 +1,7 @@
 import prismaClient from "../../prisma/prisma";
 
 interface EditarTarefaRequest {
-    id: string,
+    tarefa_id: string,
     titulo: string,
     descricao: string,
     horario: Date,
@@ -11,16 +11,16 @@ interface EditarTarefaRequest {
 
 
 class EditarTarefaService { 
-    async execute({id, titulo, descricao, horario, tempo}: EditarTarefaRequest)  {
+    async execute({tarefa_id, titulo, descricao, horario, tempo}: EditarTarefaRequest)  {
         const tarefa = await prismaClient.tarefa.update({
             where: {
-                id
+                id: tarefa_id,
             },
             data: {
-                titulo,
-                descricao,
-                horario,
-                tempo
+                titulo: titulo,
+                descricao: descricao,
+                horario: horario,
+                tempo: tempo
             }
         });
 

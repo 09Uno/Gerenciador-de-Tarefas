@@ -23,7 +23,7 @@
 
 .head {
     display: flex;
-    margin-top: 10px
+    margin-top: 3.8rem
 }
 
 .h2 {
@@ -168,3 +168,64 @@
     cursor: pointer;
     margin: 5px;
 }
+
+ 
+ @media(max-width:1069px){
+    .container{
+        width: 100%;
+    }
+    .containerCenter {
+    width: 100%;
+    height: 100%;
+    }
+    
+    .listar{
+        flex-direction: column;
+    }
+
+    .opcao{
+        margin: 5px;
+    }
+
+    .buscar{
+
+    }
+
+    .agendamentos{
+       display: flex;
+       flex-direction: row;
+       min-width: 300px;
+       height: auto;
+    }
+
+    .tag{height: 100%;}
+
+    .button{
+        width: 300px;
+    }
+
+    .tarefa{
+        margin-left: 1.5rem;
+    }
+
+    .button{
+        width: 300px;
+    }
+
+    .add {
+        display: flex;
+        float: right;
+        position: relative;
+        left: 5%;
+        border: 0px;
+        background-color: rgba(128, 128, 128, 0);
+        cursor: pointer;
+    }
+    
+    .add :hover {
+    
+        background-color: aliceblue;
+    
+    }
+    
+ }
