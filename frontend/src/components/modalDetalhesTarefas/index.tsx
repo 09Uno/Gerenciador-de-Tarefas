@@ -60,7 +60,6 @@ export default function ModalDetalhesTarefas({ isOpen, onRequestClose, tarefa }:
 
                                 >{tarefa.descricao}</div>
 
-
                                 <div className={styles.textInfo}
 
                                 >{moment.utc(tarefa.horario).format(" DD/MM/YYYY HH:mm ")}</div>

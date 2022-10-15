@@ -8,7 +8,7 @@ class RemoverTarefaController{
 
         const removerTarefaService = new RemoverTarefaService();
 
-        const tarefa = await removerTarefaService.execute({tarefa_id});
+        const tarefa = await removerTarefaService.execute(tarefa_id);
 
         return res.json(tarefa);
 

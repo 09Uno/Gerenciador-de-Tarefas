@@ -145,7 +145,6 @@ export default function ModalEditarTarefas({ isOpen, onRequestClose, tarefa }: M
 
                   />
 
-                  <button type="submit" className={styles.button}>Editar</button>
 
                 </section>
 
