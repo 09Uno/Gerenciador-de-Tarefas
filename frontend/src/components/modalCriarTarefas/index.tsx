@@ -56,16 +56,21 @@ export default function ModalCriarTarefas({ isOpen, onRequestClose }: ModalCriar
     event.preventDefault();
 
 
-    if (titulo || descricao || horario || tempo === '') {
+    if (titulo || descricao || horario || tempo === ' ') {
+
       alert('Preencha todos os campos')
       return;
+
     }
     
     let data = {
+      
       titulo,
       descricao,
       horario,
-      tempo
+      tempo,
+      
+      
     }
 
     criarTarefa(data);
@@ -74,6 +79,7 @@ export default function ModalCriarTarefas({ isOpen, onRequestClose }: ModalCriar
 
 
   }
+
   const customStyles = {
     content: {
       top: '50%',

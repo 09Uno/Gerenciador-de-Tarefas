@@ -46,6 +46,7 @@ export default function Dashboard({ tarefas }: HomeProps) {
 
 
     //separar dia mês e ano para buscas
+
     const dia = tarefasList.map(item => item.horario)
     const diaFiltro = dia.filter((item, index) => dia.indexOf(item) === index)
 
@@ -123,64 +124,6 @@ export default function Dashboard({ tarefas }: HomeProps) {
     }
 
 
-
-    /*
-    
-     //Apagar tarefa   
-    async function apagarAgendamento(id_delete: string) {
-    
-        const apiDelete = await api.elete('/agendar', {
-    
-            params: {
-                agendamento_id: id_delete,
-            }
-    
-        })
-    
-    }
-    
-    async function apagar(id_delete: string) {
-    
-        apagarAgendamento(id_delete);
-    
-    
-    }
-    
-    //apagar tarefas que já passaram automáticamente
-    useEffect(() => {
-    
-        tarefasList.forEach(tarefa => {
-            moment.locale('pt-br');
-            const now = new Date();
-    
-            
-            const hora = moment.utc(tarefa.horario).format('DD-MM-YYYY HH:mm')
-            const hora2 = moment(now).format('DD-MM-YYYY HH:mm')
-    
-    
-            const dataCompare = new Date(hora)
-            const nowCompare = new Date(hora2)
-    
-            
-    
-    
-    
-            if (nowCompare > dataCompare) {
-                apagar(tarefa.id)
-    
-            }
-             
-    
-        });
-    
-    }, [tarefasList]
-    )
-    
-    */
-
-    //atualizar lista de tarefas
-
-
     async function atualizarLista() {
         const api = setupAPICliente()
 
@@ -220,7 +163,7 @@ export default function Dashboard({ tarefas }: HomeProps) {
 
                             <select value={filtro} onChange={(e) => setFiltro(e.target.value)} className={styles.opcao}>
 
-                                <option value="">Filtrar por Período</option>
+                                <option value={""}>Filtrar por Período</option>
 
                                 <optgroup label='DIA'>
 
