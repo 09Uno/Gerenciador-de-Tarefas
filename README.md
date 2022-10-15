@@ -12,4 +12,4 @@ Ainda pretendo terminar a aplicação e corrigir os bugs.
 6-  após, na pasta backend, abra o CMD e utilize o comando yarn dev para rodar o servidor local; </br >
 7-  faça o mesmo na pasta frontend;  </br >
 
-A unica página construída até então é a DashBoard, então ao carregar altere o link para "/dashboard"
+
