@@ -3,6 +3,7 @@
 Gerenciador de Tarefas feito para o desafio da empresa DIEL ENERGIA.
 
 Ainda pretendo terminar a aplicação e corrigir os bugs.
+O código encontra-se na branch master.
 
 1 - faça a instalação do gerenciador de pacotes yarn; </br >
 2 - configure um servidor local postgrees(pgadmin4); </br >
